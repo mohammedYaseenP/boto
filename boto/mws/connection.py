@@ -1171,7 +1171,7 @@ class MWSConnection(AWSQueryConnection):
 
 
 
-   @api_action('Finances', 2, 30, 'ListFinancialEvents')
+    @api_action('Finances', 2, 30, 'ListFinancialEvents')
     def list_financial_events(self, request, response, **kw):
         """Returns a list of financial events"""
         return self._post_request(request, kw, response)
