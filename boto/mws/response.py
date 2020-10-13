@@ -785,3 +785,123 @@ class RefundResult(ResponseElement):
 
 class GetRefundDetails(RefundResult):
     pass
+
+
+class CurrencyAmount(ComplexAmount):
+    _amount = "CurrencyAmount"
+
+class ChargeComponent(ResponseElement):
+    ChargeAmount = Element(CurrencyAmount)
+
+class FeeComponent(ResponseElement):
+    FeeAmount=Element(CurrencyAmount)
+
+class DirectPayment(ResponseElement):
+    DirectPaymentAmount=Element(CurrencyAmount)
+
+class Promotion(ResponseElement):
+    PromotionAmount=Element(CurrencyAmount)
+
+
+
+class ShipmentItem(ResponseElement):
+    ItemChargeList= Element(ChargeComponent=ElementList(ChargeComponent))
+    ItemChargeAdjustmentList= Element(ChargeComponent=ElementList(ChargeComponent))
+    ItemFeeList= Element(FeeComponent=ElementList(FeeComponent))
+    ItemFeeAdjustmentList= Element(FeeComponent=ElementList(FeeComponent))
+    PromotionList= Element(Promotion=ElementList(Promotion))
+    PromotionAdjustmentList= Element(Promotion=ElementList(Promotion))
+    CostOfPointsGranted=Element(CurrencyAmount)
+    CostOfPointsReturned=Element(CurrencyAmount)
+
+
+class DebtRecoveryItem(ResponseElement):
+    RecoveryAmount=Element(CurrencyAmount)
+    OriginalAmount=Element(CurrencyAmount)
+
+
+class ChargeInstrument(ResponseElement):
+    Amount=Element(CurrencyAmount)
+
+class AdjustmentItem(ResponseElement):
+    PerUnitAmount=Element(CurrencyAmount)
+    TotalAmount= Element(CurrencyAmount)
+
+class SAFETReimbursementItem(ResponseElement):
+    ItemChargeList=Element(ItemCharge=ElementList(ChargeComponent))
+
+class ShipmentEvent(ResponseElement):
+    OrderChargeList=Element(OrderCharge=ElementList(ChargeComponent))
+    OrderChargeAdjustmentList= Element(OrderChargeAdjustment=ElementList(ChargeComponent=ChargeComponent))
+    ShipmentFeeList=Element(ShipmentFee=ElementList(FeeComponent))
+    ShipmentFeeAdjustmentList=Element(FeeComponent=ElementList(FeeComponent))
+    OrderFeeList=Element(FeeComponent=ElementList(FeeComponent))
+    OrderFeeAdjustmentList=Element(FeeComponent=ElementList(FeeComponent))
+    DirectPaymentList=Element(DirectPayment=ElementList(DirectPayment))
+    ShipmentItemList=Element(ShipmentItem=ElementList(ShipmentItem))
+    ShipmentItemAdjustmentList=Element(ShipmentItem=ElementList(ShipmentItem))
+
+class PayWithAmazonEvent(ResponseElement):
+    Charge=Element(ChargeComponent)
+    FeeList=Element(FeeComponent=ElementList(FeeComponent))
+
+class SolutionProviderCreditEvent(ResponseElement):
+    pass
+
+class  RetrochargeEvent(ResponseElement):
+    BaseTax=Element(CurrencyAmount)
+    ShippingTax=Element(CurrencyAmount)
+
+class RentalTransactionEvent(ResponseElement):
+    RentalChargeList=Element(ChargeComponent=ElementList(ChargeComponent))
+    RentalFeeList=Element(FeeComponent=ElementList(FeeComponent))
+    RentalInitialValue=Element(CurrencyAmount)
+    RentalReimbursement=Element(CurrencyAmount)
+
+class PerformanceBondRefundEvent(ResponseElement):
+    Amount=Element(CurrencyAmount)
+
+class ServiceFeeEvent(ResponseElement):
+    FeeList=Element(Fee=ElementList(FeeComponent))
+
+class  DebtRecoveryEvent(ResponseElement):
+    RecoveryAmount=Element(CurrencyAmount)
+    OverPaymentCredit=Element(CurrencyAmount)
+    DebtRecoveryItemList=Element(DebtRecoveryItem=ElementList(DebtRecoveryItem))
+    ChargeInstrumentList=Element(ChargeInstrument=ElementList(ChargeInstrument))
+
+class LoanServicingEvent(ResponseElement):
+    LoanAmount=Element(CurrencyAmount)
+
+class AdjustmentEvent(ResponseElement):
+    AdjustmentAmount=Element(CurrencyAmount)
+    AdjustmentItemList=Element(AdjustmentItem=ElementList(AdjustmentItem))
+
+class SAFETReimbursementEvent(ResponseElement):
+    ReimbursedAmount=Element(CurrencyAmount)
+    SAFETReimbursementItemList=Element(SAFETReimbursementItem=ElementList(SAFETReimbursementItem))
+
+class FinancialEvents(ResponseElement):
+    ShipmentEventList=Element(ShipmentEvent=ElementList(ShipmentEvent))
+    RefundEventList=Element(ShipmentEvent=ElementList(ShipmentEvent))
+    GuaranteeClaimEventList=Element(ShipmentEvent=ElementList(ShipmentEvent))
+    ChargebackEventList=Element(ShipmentEvent=ElementList(ShipmentEvent))
+    PayWithAmazonEventList=Element(PayWithAmazonEvent=ElementList(PayWithAmazonEvent))
+    ServiceProviderCreditEventList=Element(SolutionProviderCreditEvent=ElementList(SolutionProviderCreditEvent))
+    RetrochargeEvents=Element(RetrochargeEvent=ElementList(RetrochargeEvent))
+    RentalTransactionEventList=Element(RentalTransactionEvent=ElementList(RentalTransactionEvent))
+    PerformanceBondRefundEventList=Element(PerformanceBondRefundEvent=ElementList(PerformanceBondRefundEvent))
+    ServiceFeeEventList=Element(ServiceFeeEvent=ElementList(ServiceFeeEvent))
+    DebtRecoveryEventList=Element(DebtRecoveryEvent=ElementList(DebtRecoveryEvent))
+    LoanServicingEventList=Element(LoanServicingEvent=ElementList(LoanServicingEvent))
+    AdjustmentEventList=Element(AdjustmentEvent=ElementList(AdjustmentEvent))
+    SAFETReimbursementEventList=Element(SAFETReimbursementEvent=ElementList(SAFETReimbursementEvent))
+
+
+class ListFinancialEventsResult(ResponseElement):
+    FinancialEvents=Element(FinancialEvents)
+
+
+
+class ListFinancialEventsByNextTokenResult(ResponseElement):
+    FinancialEvents=Element(FinancialEvents)
